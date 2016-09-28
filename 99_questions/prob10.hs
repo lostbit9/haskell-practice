@@ -1,8 +1,5 @@
--- Run-length encoding of a list. 
+-- Runlength encoding
 --
 
-pack :: (Eq a) => [a] -> [[a]]
-pack (x:xs) = foldl (\acc x -> if x == (last $ last acc) then init acc ++ [x:last acc] else acc ++ [[x]]) [[x]] xs
-
-runLengthEncoding :: (Eq a, Num b) => [a] -> [(b, a)]
-runLengthEncoding xs = zipWith (\x y -> (x,y)) (map (fromIntegral . length) (pack xs)) (map (\xs -> head xs) (pack xs))
+encode' :: (Num b) => String -> [(b,Char)]
+encode' (x:xs) = foldl (\acc x -> if x == (snd (last acc)) then (init acc) ++ [((fst (last acc) + 1), snd (last acc))] else acc ++ [(1, x)]) [(1,x)] xs
